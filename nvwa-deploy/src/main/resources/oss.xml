@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="ossClient" class="com.aliyun.oss.OSSClient" destroy-method="shutdown">
+        <constructor-arg index="0" value="http://${aliyun.endpoint}" />
+        <constructor-arg index="1" value="${aliyun.access-key-id}" />
+        <constructor-arg index="2" value="${aliyun.secret-access-key}" />
+    </bean>
+
+    <bean id="xlabOssClient"
+          class="org.xlab.infrastructure.oss.DirectoryFixedXlabOssClient">
+        <property name="bucketName" value="${aliyun.bucket-name}" />
+        <property name="ossClient" ref="ossClient" />
+        <property name="endpoint" value="${aliyun.endpoint}" />
+        <property name="fileNameGenerator">
+            <bean class="org.xlab.infrastructure.oss.RandomOssFileNameGenerator" />
+        </property>
+        <property name="directory" value="${aliyun.oss.directory}" />
+    </bean>
+</beans>

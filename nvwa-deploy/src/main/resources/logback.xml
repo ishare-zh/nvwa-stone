@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration scan="true" scanPeriod=" 5 seconds" debug="false">
+    <!-- 动态日志级别 -->
+    <jmxConfigurator/>
+
+    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+    <property resource="application.properties"/>
+
+    <!-- 日志路径 -->
+    <property name="LOG_PATH" value="${application.log.path}"/>
+    <!-- 日志归档路径 -->
+    <property name="LOG_HISTORY_PATH" value="${application.log.history.path}" />
+
+    <!-- 控制台输出 -->
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{56} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- ROOT日志 -->
+    <appender name="ROOT" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_PATH}/root.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 按月归档 -->
+            <fileNamePattern>${LOG_HISTORY_PATH}/%d{yyyy/MM}/root-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{56} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- SQL语句 -->
+    <appender name="SQL" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_PATH}/sql.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 按月归档 -->
+            <fileNamePattern>${LOG_HISTORY_PATH}/%d{yyyy/MM}/sql-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{56} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- SMS -->
+    <appender name="SMS" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_PATH}/sms.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 按月归档 -->
+            <fileNamePattern>${LOG_HISTORY_PATH}/%d{yyyy/MM}/sms-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{56} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- OSS -->
+    <appender name="OSS" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_PATH}/oss.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 按月归档 -->
+            <fileNamePattern>${LOG_HISTORY_PATH}/%d{yyyy/MM}/oss-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{56} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- PUSH -->
+    <appender name="PUSH" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <File>${LOG_PATH}/push.log</File>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <!-- 按月归档 -->
+            <fileNamePattern>${LOG_HISTORY_PATH}/%d{yyyy/MM}/push-%d{yyyy-MM-dd}-%i.log.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>100MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>10</maxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>
+                %d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{56} - %msg%n
+            </pattern>
+        </encoder>
+    </appender>
+
+    <!-- druid连接池 -->
+    <logger name="druid.sql.Statement" additivity="false">
+        <level value="DEBUG"/>
+        <appender-ref ref="SQL"/>
+    </logger>
+
+    <!-- SMS服务 -->
+    <logger name="com.weker.heaven.service.common.impl.SmsServiceImpl" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="SMS"/>
+    </logger>
+
+    <!-- OSS服务 -->
+    <logger name="com.weker.heaven.service.common.impl.OssServiceImpl" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="OSS"/>
+    </logger>
+
+    <!-- PUSH服务 -->
+    <logger name="com.weker.heaven.service.common.impl.AppPushServiceImpl" additivity="false">
+        <level value="INFO"/>
+        <appender-ref ref="PUSH"/>
+    </logger>
+
+    <root level="INFO">
+        <appender-ref ref="ROOT"/>
+    </root>
+</configuration>

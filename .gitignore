@@ -1,0 +1,24 @@
+# maven target
+target/
+
+# jrebel generate
+rebel.xml
+
+# java packages
+*.jar
+*.class
+*.war
+
+# ide generate
+.metadata
+.mymetadata
+.project
+.classpath
+.settings/
+.idea/
+*.iml
+*.ipr
+*.iws
+
+# mac generate
+.DS_Store

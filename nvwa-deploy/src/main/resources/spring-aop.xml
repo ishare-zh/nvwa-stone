@@ -1,0 +1,38 @@
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns="http://www.springframework.org/schema/beans"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="
+                   http://www.springframework.org/schema/beans
+                   http://www.springframework.org/schema/beans/spring-beans.xsd
+                   http://www.springframework.org/schema/tx
+                   http://www.springframework.org/schema/tx/spring-tx.xsd
+                   http://www.springframework.org/schema/aop
+                   http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+                   http://www.springframework.org/schema/context
+                   http://www.springframework.org/schema/context/spring-context-3.0.xsd">
+
+    <tx:advice id="defaultTxAdvice">
+        <tx:attributes>
+            <tx:method name="*" rollback-for="Exception"/>
+        </tx:attributes>
+    </tx:advice>
+    <!--<aop:config>-->
+        <!--<aop:pointcut id="ao_bo"-->
+                      <!--expression="(execution(* *..*ServiceImpl.*(..))) or ( execution(* *..*AoImpl.*(..)) and ( not execution(* *..*AoImpl.mtx_*(..)) ) )"/>-->
+        <!--<aop:advisor pointcut-ref="ao_bo" advice-ref="defaultTxAdvice"/>-->
+    <!--</aop:config>-->
+
+    <!--<bean id="druid-stat-interceptor" class="com.alibaba.druid.support.spring.stat.DruidStatInterceptor" />-->
+    <!--<bean id="druid-stat-pointcut" class="org.springframework.aop.support.JdkRegexpMethodPointcut" scope="prototype">-->
+        <!--<property name="patterns">-->
+            <!--<list>-->
+                <!--<value>com.weker.regulus.service.*</value>-->
+            <!--</list>-->
+        <!--</property>-->
+    <!--</bean>-->
+    <!--<aop:config>-->
+        <!--<aop:advisor advice-ref="druid-stat-interceptor" pointcut-ref="druid-stat-pointcut" />-->
+    <!--</aop:config>-->
+</beans>
